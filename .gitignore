@@ -1,0 +1,14 @@
+.DS_Store
+pom.xml
+*jar
+*.iml
+/lib/
+/classes/
+/out/
+/target/
+/resources/
+.lein*
+.idea*
+/node_modules
+.serverless*
+.nrepl-port
