@@ -83,7 +83,7 @@
   (testing "Parsing from pairs to schedule"
     (is (= '({:day      :thursday
               :schedule ("10 AM - 6 PM")})
-           (pairs->schedule [{:current [:thursday
+           (pairs->schedules [{:current [:thursday
                                         [{:type  "open"
                                           :value 36000}
                                          {:type  "close"
@@ -96,14 +96,14 @@
                            "4 PM - 11 PM")})
            (-> test-opening-hours
                parse-into-day-pairs
-               pairs->schedule))))
+               pairs->schedules))))
  (testing "Opening hours are parsed correctly even if they are in the wrong order"
     (is (= (-> test-opening-hours
                parse-into-day-pairs
-               pairs->schedule)
+               pairs->schedules)
            (-> test-opening-hours-wrong-order
                parse-into-day-pairs
-               pairs->schedule)))))
+               pairs->schedules)))))
 
 (deftest parse-schedule-from-json-test
   (testing "Opening hours are parsed from JSON input"
