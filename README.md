@@ -50,6 +50,12 @@ lein test
 ```shell
 java -jar target/opening-hours.jar <json-file-path>
 ```
+### Run using Docker
+```shell
+lein uberjar
+docker build -t opening-hours .
+docker run -v `pwd`/example.json:/home/input.json opening-hours
+```
 
 # ClojureScript serverless function
 Uses [Serverless](https://github.com/serverless/serverless) framework (with [serverless-cljs-plugin](https://github.com/nervous-systems/serverless-cljs-plugin)) and [cljs-lambda](https://github.com/nervous-systems/cljs-lambda). By compiling ClojureScript into JavaScript we can use the node.js runtime instead of JVM, which allows a much faster cold start for the Lambda function.
