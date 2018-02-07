@@ -4,7 +4,7 @@ A simple Clojure application and a serverless ClojureScript function for parsing
 
 The local Clojure application parses data from a file, the remote function parses data from HTTP POST body.
 
-# Example input
+### Example input
 ```json
 {
   "monday": [
@@ -21,32 +21,51 @@ The local Clojure application parses data from a file, the remote function parse
 }
 ```
 
-# Example output
+### Example output
 ```shell
 Monday: 1 AM - 2 AM
 Tuesday: Closed 
 ```
 
-# Build local Clojure application
+# Notes
+
+Days and values can be given in any order in the JSON input, they are always sorted to the correct order.
+
+### Missing things:
+* Input schema validation
+* Proper error handling (as the input is not validated, errors might happen)
+* Better naming for helper functions ([naming is hard](https://martinfowler.com/bliki/TwoHardThings.html))
+
+# Clojure application
+Built using [Leiningen](https://leiningen.org/).
+### Build
 ```shell
 lein uberjar
 ``` 
-# Run tests
+### Run tests
 ````shell
 lein test
 ````
-# Run locally
+### Run locally
 ```shell
 java -jar target/opening-hours.jar <json-file-path>
 ```
-# Deploy remote ClojureScript function
+
+# ClojureScript serverless function
+Uses [Serverless](https://github.com/serverless/serverless) framework (with [serverless-cljs-plugin](https://github.com/nervous-systems/serverless-cljs-plugin)) and [cljs-lambda](https://github.com/nervous-systems/cljs-lambda). By compiling ClojureScript into JavaScript we can use the node.js runtime instead of JVM, which allows a much faster cold start for the Lambda function.
+ 
+### Deploy to cloud
 
 ```shell
 $ serverless deploy
 ```
 
+### Demo endpoint
+
+https://bkjycycw6i.execute-api.eu-west-1.amazonaws.com/dev/opening-hours (HTTP POST only)
+
 # Examples
-Running Clojure version locally:
+Running the Clojure application locally:
 ```shell
 $ java -jar target/opening-hours.jar example.json
 Monday: Closed
